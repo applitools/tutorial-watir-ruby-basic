@@ -35,13 +35,11 @@ begin
 
   # Check the app page
   eyes.check('App Page', Applitools::Selenium::Target.window.fully)
-  eyes.close(false)
-rescue => e
-  puts e.message
-  eyes.abort
+  eyes.close
 ensure
   # Close the browser
   driver.quit
+  eyes.abort
   # Get and print all test results
   puts runner.get_all_test_results
 end
