@@ -1,16 +1,19 @@
 require 'eyes_selenium'
 require 'watir'
 
+options = Selenium::WebDriver::Chrome::Options.new
+options.add_argument('--headless') if ENV['CI'] == 'true'
+
 runner = Applitools::ClassicRunner.new
 eyes = Applitools::Selenium::Eyes.new(runner: runner)
-browser = Watir::Browser.new(:chrome)
+browser = Watir::Browser.new(:chrome, options:options)
 Applitools::EyesLogger.log_handler = Logger.new(STDOUT).tap do |l|
   l.level = Logger::INFO
 end
 
 sconf = Applitools::Selenium::Configuration.new.tap do |conf|
   conf.api_key = ENV['APPLITOOLS_API_KEY']
-  conf.app_name = 'Demo App'
+  conf.app_name = 'Demo App - Watir'
   conf.test_name = 'Ruby Watir demo'
   conf.viewport_size = Applitools::RectangleSize.new(800, 600)
 end
