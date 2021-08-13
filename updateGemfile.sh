@@ -10,3 +10,4 @@ echo "source 'https://rubygems.org'
 
 gem \"eyes_selenium\", \"= $EYES\"
 gem \"watir\", \"= $WATIR\"" > Gemfile
+bundle install
